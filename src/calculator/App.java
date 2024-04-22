@@ -19,6 +19,30 @@ public class App {
         * https://docs.oracle.com/javase/8/docs/api/java/lang/String.html */
         char operator = sc.next().charAt(0);
 
-        System.out.println("operator = " + operator);
+        int result = 0;
+        switch(operator){ // switch 문을 사용해 기호에 맞는 연산 실행
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                if ( num2 == 0 ) { // 분모가 0인 경우 예외처리
+                    System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
+                    break;
+                }
+                result = num1 / num2;
+                break;
+            default: // 정의되지 않은 기호의 경우 처리
+                System.out.println("정의되어있는 사칙 연산 기호가 아닙니다.");
+                break;
+        }
+        System.out.println("결과: " + result);
+
+
     }
 }
