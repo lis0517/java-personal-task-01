@@ -7,6 +7,9 @@ public class App {
 
         Scanner sc = new Scanner(System.in);
 
+        int idx = 0;
+        int[] numArray = new int[10];
+
         while(true)
         {
             System.out.print("첫 번째 숫자를 입력하세요: ");
@@ -44,6 +47,9 @@ public class App {
                     break;
             }
             System.out.println("결과: " + result);
+
+            if ( idx < 10 ) // index가 10과 같거나 넘어가면 오류 발생
+                numArray[idx++] = result; // 비어있는 곳에 저장 후 다음 index로 증가
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
 
