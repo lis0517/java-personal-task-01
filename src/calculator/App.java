@@ -13,6 +13,12 @@ public class App {
         System.out.print("두 번째 숫자를 입력하세요: ");
         int num2 = sc.nextInt();
 
-        System.out.println("num1, num2 = " + num1 + ", " + num2);
+        System.out.print("사칙연산 기호를 입력하세요 : "); // +, -, *, /
+
+        /* charAt() 함수는 문자열에서 특정 인덱스에 위치하는 단일문자를 반환합니다.
+        * https://docs.oracle.com/javase/8/docs/api/java/lang/String.html */
+        char operator = sc.next().charAt(0);
+
+        System.out.println("operator = " + operator);
     }
 }
