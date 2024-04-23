@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Calculator {
 
-    public ArrayList<Integer> resultHistory = new ArrayList<>(); // 연산 결과를 저장
-
+    private ArrayList<Integer> resultHistory = new ArrayList<>(); // 연산 결과를 저장
+    
     /**
      * 사칙연산자를 이용해 계산하는 함수
      *
@@ -38,5 +38,23 @@ public class Calculator {
             System.out.println(e.getMessage()); // getMessage()는 throwable의 세부 정보 메시지 문자열을 반환합니다.
         }
         return result;
+    }
+    
+    /**
+     * resultHistory 변수에 간접 접근
+     * 
+     * @return resultHistory 반환
+     * */
+    public ArrayList<Integer> getResultHistory(){
+        return resultHistory;
+    }
+
+    /**
+     * resultHistory 간접적으로 접근하여 수정
+     *
+     * @param result 연산 결과값
+     * */
+    public void addResultHistory( int result ){
+        resultHistory.add(result);
     }
 }

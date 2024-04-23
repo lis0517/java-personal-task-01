@@ -25,18 +25,18 @@ public class App {
             int result = calculator.calculate(operator, firstNum, secondNum);
             System.out.println("결과: " + result);
 
-            calculator.resultHistory.add(result);
+            calculator.addResultHistory(result);
 
             System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력)");
             String removeCode = sc.next().toLowerCase();
             if ( removeCode.equals("remove") ){
-                calculator.resultHistory.remove(0);
+                calculator.getResultHistory().remove(0);
             }
 
             System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
             String inquiryCode = sc.next().toLowerCase();
             if ( inquiryCode.equals("inquiry") ){
-                for( int value : calculator.resultHistory ){
+                for( int value : calculator.getResultHistory() ){
                     System.out.print(value + " ");
                 }
                 System.out.println();
