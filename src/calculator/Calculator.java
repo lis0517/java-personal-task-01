@@ -4,12 +4,19 @@ import java.util.ArrayList;
 
 public class Calculator {
 
-    private ArrayList<Integer> resultHistory; // 연산 결과를 저장
+    /* final 사용 이유.
+    * 현재 작업 한 코드는 필드들이 초기화 이후에 변경되지 않을 것임을 암시하고 있습니다.
+    * 이 의도를 더욱 명확하게 전달하기 위해 final 키워드를 사용했습니다. */
+    private final ArrayList<Integer> resultHistory; // 연산 결과를 저장
+    private final ArrayList<Double> circleAreaResultHistory; // 원 연산 결과를 저장
 
     public Calculator() { // 생성자
-        resultHistory = new ArrayList<>(); // 해당 시점에 ArrayList 초기화
+        resultHistory = new ArrayList<>(); // 인스턴스 생성 시점에 ArrayList 초기화
+        circleAreaResultHistory = new ArrayList<>();
     }
-    
+
+    //region arithmetic
+
     /** 사칙연산자를 이용해 계산하는 함수
      *
      * @param operator  사칙연산(+,-,*,/) 기호
@@ -42,8 +49,8 @@ public class Calculator {
         }
         return result;
     }
-    
-    /** resultHistory 변수에 간접 접근
+
+    /** resultHistory 필드에 간접 접근(가져오기)
      *
      * @return resultHistory 반환
      * */
@@ -51,7 +58,7 @@ public class Calculator {
         return resultHistory;
     }
 
-    /** resultHistory 간접적으로 접근하여 수정
+    /** resultHistory 필드에 간접 접근 (추가)
      *
      * @param result 연산 결과값
      * */
@@ -71,4 +78,41 @@ public class Calculator {
         }
         System.out.println();
     }
+
+    //endregion
+
+    //region area of circle
+    
+    /** 원의 넓이를 구하는 함수
+     * 
+     * @param radius 원의 반지름
+     * @return 원의 넓이(double)
+     * */
+    public double calculateCircleArea(double radius){
+        return radius * radius * Math.PI;
+    }
+
+    /** circleAreaResultHistory 필드에 간접 접근(가져오기)
+     *  @return circleAreaResultHistory 반환
+     * */
+    public ArrayList<Double> getCircleAreaResultHistory(){
+        return circleAreaResultHistory;
+    }
+
+    /** circleAreaResultHistory 필드에 간접 접근 (추가)
+     *  @param result 연산 결과값
+     * */
+    public void addCircleAreaResultHistory(double result){
+        circleAreaResultHistory.add(result);
+    }
+
+    /** 저장된 연산 결과들을 조회하는 함수 */
+    public void inquiryCircleAreaResults(){
+        for(double value : circleAreaResultHistory){
+            System.out.print(value + " ");
+        }
+        System.out.println();
+    }
+
+    //endregion
 }
