@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 public class Calculator {
 
-    private ArrayList<Integer> resultHistory = new ArrayList<>(); // 연산 결과를 저장
+    private ArrayList<Integer> resultHistory; // 연산 결과를 저장
+
+    public Calculator() { // 생성자
+        resultHistory = new ArrayList<>(); // 해당 시점에 ArrayList 초기화
+    }
     
     /** 사칙연산자를 이용해 계산하는 함수
      *
