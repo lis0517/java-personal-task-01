@@ -1,7 +1,5 @@
 package calculator;
 
-import java.util.ArrayList;
-
 public class CircleCalculator extends Calculator {
 
     /** 원의 넓이를 구하는 함수

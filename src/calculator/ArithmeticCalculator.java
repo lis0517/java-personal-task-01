@@ -1,8 +1,20 @@
 package calculator;
 
-import java.util.ArrayList;
-
 public class ArithmeticCalculator extends Calculator {
+
+    // 사칙 연산 필드
+    private final AddOperator addOperator;
+    private final SubtractOperator subtractOperator;
+    private final MultiplyOperator multiplyOperator;
+    private final DivideOperator divideOperator;
+
+    public ArithmeticCalculator(){
+        addOperator = new AddOperator();
+        subtractOperator = new SubtractOperator();
+        multiplyOperator = new MultiplyOperator();
+        divideOperator = new DivideOperator();
+    }
+    
 
     /** 사칙연산자를 이용해 계산하는 함수
      *
@@ -16,16 +28,16 @@ public class ArithmeticCalculator extends Calculator {
         try {
             switch (operator){
                 case '+':
-                    result = firstNum + secondNum;
+                    result = addOperator.operate(firstNum, secondNum);
                     break;
                 case '-' :
-                    result = firstNum - secondNum;
+                    result = subtractOperator.operate(firstNum, secondNum);
                     break;
                 case '*' :
-                    result = firstNum * secondNum;
+                    result = multiplyOperator.operate(firstNum, secondNum);
                     break;
                 case '/' :
-                    result = firstNum / secondNum;
+                    result = divideOperator.operate(firstNum, secondNum);
                     break;
                 default :// 정의되지 않은 기호의 경우 처리
                     System.out.println("정의되어있는 사칙 연산 기호가 아닙니다.");
