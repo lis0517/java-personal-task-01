@@ -6,8 +6,7 @@ public class Calculator {
 
     private ArrayList<Integer> resultHistory = new ArrayList<>(); // 연산 결과를 저장
     
-    /**
-     * 사칙연산자를 이용해 계산하는 함수
+    /** 사칙연산자를 이용해 계산하는 함수
      *
      * @param operator  사칙연산(+,-,*,/) 기호
      * @param firstNum  첫번째 값
@@ -40,21 +39,24 @@ public class Calculator {
         return result;
     }
     
-    /**
-     * resultHistory 변수에 간접 접근
-     * 
+    /** resultHistory 변수에 간접 접근
+     *
      * @return resultHistory 반환
      * */
     public ArrayList<Integer> getResultHistory(){
         return resultHistory;
     }
 
-    /**
-     * resultHistory 간접적으로 접근하여 수정
+    /** resultHistory 간접적으로 접근하여 수정
      *
      * @param result 연산 결과값
      * */
     public void addResultHistory( int result ){
         resultHistory.add(result);
+    }
+
+    /** 첫번째 결과 값을 삭제하는 함수 */
+    public void removeResult(){
+        resultHistory.remove(0);
     }
 }
