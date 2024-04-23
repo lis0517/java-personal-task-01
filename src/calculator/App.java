@@ -1,15 +1,14 @@
 package calculator;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
-    private static final int MAX_HISTORY_SIZE = 10;
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        int idx = 0;
-        int[] resultHistory = new int[MAX_HISTORY_SIZE];
+        ArrayList<Integer> resultHistory = new ArrayList<>(); // 무한하게 저장하도록 추가
 
         while(true)
         {
@@ -49,19 +48,14 @@ public class App {
             }
             System.out.println("결과: " + result);
 
+            resultHistory.add(result);
 
-            if ( idx >= MAX_HISTORY_SIZE ){ // MAX_HISTORY_SIZE 개를 초과하는 경우 가장 먼저 저장된 결과를 삭제하고 새로운 결과가 저장될 수 있도록 수정
-                for ( int i = 0; i < MAX_HISTORY_SIZE; ++i ){
-                    if ( i == MAX_HISTORY_SIZE - 1 )
-                        resultHistory[i] = result;
-                    else
-                        resultHistory[i] = resultHistory[i + 1];
-                }
+            System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력)");
+            String removeCode = sc.next().toLowerCase();
+            if ( removeCode.equals("remove") ){
+                resultHistory.remove(0);
             }
-            else{
-                resultHistory[idx++] = result; // 비어있는 곳에 저장 후 다음 index로 증가
-            }
-
+            
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
 
             /* toLowerCase() 함수는 기본 Locale 규칙을 사용하여 이 문자의 모든 문자를 소문자로 변환합니다.
