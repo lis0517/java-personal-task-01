@@ -59,4 +59,12 @@ public class Calculator {
     public void removeResult(){
         resultHistory.remove(0);
     }
+
+    /** 저장된 연산 결과들을 조회하는 함수 */
+    public void inquiryResults(){
+        for( int value : resultHistory ){
+            System.out.print(value + " ");
+        }
+        System.out.println();
+    }
 }

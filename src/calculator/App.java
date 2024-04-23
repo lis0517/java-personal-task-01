@@ -36,10 +36,7 @@ public class App {
             System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
             String inquiryCode = sc.next().toLowerCase();
             if ( inquiryCode.equals("inquiry") ){
-                for( int value : calculator.getResultHistory() ){
-                    System.out.print(value + " ");
-                }
-                System.out.println();
+                calculator.inquiryResults();
             }
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
