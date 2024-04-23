@@ -55,7 +55,16 @@ public class App {
             if ( removeCode.equals("remove") ){
                 resultHistory.remove(0);
             }
-            
+
+            System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
+            String inquiryCode = sc.next().toLowerCase();
+            if ( inquiryCode.equals("inquiry") ){
+                for( int value : resultHistory ){
+                    System.out.print(value + " ");
+                }
+                System.out.println();
+            }
+
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
 
             /* toLowerCase() 함수는 기본 Locale 규칙을 사용하여 이 문자의 모든 문자를 소문자로 변환합니다.
