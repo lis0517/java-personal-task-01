@@ -1,68 +1,64 @@
 package calculator;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
+        /* Calculator 인스턴스 생성 */
+        ArithmeticCalculator arithmeticCalculator = new ArithmeticCalculator();
+        CircleCalculator circleCalculator = new CircleCalculator();
 
         Scanner sc = new Scanner(System.in);
 
-        ArrayList<Integer> resultHistory = new ArrayList<>(); // 무한하게 저장하도록 추가
+        while (true){
+            /* 사칙연산을 진행할지 원의 너비를 구할지 선택 */
+            System.out.print("1. 사칙연산 | 2. 원의 넓이 계산 | 0. 종료 : ");
+            int choice = sc.nextInt();
 
-        while(true)
-        {
-            System.out.print("첫 번째 숫자를 입력하세요: ");
-            int firstNumber = sc.nextInt(); // 정수형 변수를 선언, nextInt로 입력받음
+            if ( choice == 1 ){ // 사칙연산
 
-            System.out.print("두 번째 숫자를 입력하세요: ");
-            int secondNumber = sc.nextInt();
+                System.out.print("첫 번째 숫자를 입력하세요: ");
+                int firstNum = sc.nextInt(); // 정수형 변수를 선언, nextInt로 입력받음
 
-            System.out.print("사칙연산 기호를 입력하세요 : "); // +, -, *, /
+                System.out.print("두 번째 숫자를 입력하세요: ");
+                int secondNum = sc.nextInt();
 
-            /* charAt() 함수는 문자열에서 특정 인덱스에 위치하는 단일문자를 반환합니다.
-             * https://docs.oracle.com/javase/8/docs/api/java/lang/String.html */
-            char operator = sc.next().charAt(0);
+                System.out.print("사칙연산 기호를 입력하세요 : "); // +, -, *, /
 
-            int result = 0;
-            switch(operator){ // switch 문을 사용해 기호에 맞는 연산 실행
-                case '+':
-                    result = firstNumber + secondNumber;
-                    break;
-                case '-':
-                    result = firstNumber - secondNumber;
-                    break;
-                case '*':
-                    result = firstNumber * secondNumber;
-                    break;
-                case '/':
-                    if ( secondNumber == 0 ) { // 분모가 0인 경우 예외처리
-                        System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
-                        break;
-                    }
-                    result = firstNumber / secondNumber;
-                    break;
-                default: // 정의되지 않은 기호의 경우 처리
-                    System.out.println("정의되어있는 사칙 연산 기호가 아닙니다.");
-                    break;
-            }
-            System.out.println("결과: " + result);
+                /* charAt() 함수는 문자열에서 특정 인덱스에 위치하는 단일문자를 반환합니다.
+                 * https://docs.oracle.com/javase/8/docs/api/java/lang/String.html */
+                char operator = sc.next().charAt(0);
 
-            resultHistory.add(result);
+                int result = arithmeticCalculator.calculate(operator, firstNum, secondNum);
+                System.out.println("결과: " + result);
 
-            System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력)");
-            String removeCode = sc.next().toLowerCase();
-            if ( removeCode.equals("remove") ){
-                resultHistory.remove(0);
-            }
+                arithmeticCalculator.addResultHistory(result);
 
-            System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
-            String inquiryCode = sc.next().toLowerCase();
-            if ( inquiryCode.equals("inquiry") ){
-                for( int value : resultHistory ){
-                    System.out.print(value + " ");
+                System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력)");
+                String removeCode = sc.next().toLowerCase();
+                if ( removeCode.equals("remove") ){
+                    arithmeticCalculator.removeResult();
                 }
-                System.out.println();
+
+                System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
+                String inquiryCode = sc.next().toLowerCase();
+                if ( inquiryCode.equals("inquiry") ){
+                    arithmeticCalculator.inquiryResults();
+                }
+            }
+            else if ( choice == 2){ // 원의 넓이
+                System.out.print("반지름을 입력하세요: ");
+                double radius = sc.nextDouble();
+                /* 원의 넓이를 구하는 경우 반지름을 입력받아 원의 넓이를 구한 후 출력*/
+                double area = circleCalculator.calculateCircleArea(radius);
+                System.out.println("결과: " + area);
+                /* 원의 넓이 저장 */
+                circleCalculator.addResultHistory(area);
+                /* 저장된 원의 넓이 값들 바로 전체 조회 */
+                circleCalculator.inquiryResults();
+            }
+            else{
+                break;
             }
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
@@ -74,7 +70,6 @@ public class App {
             if ( exitCode.equals("exit") )
                 break;
         }
-
         sc.close();
     }
 }
