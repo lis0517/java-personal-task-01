@@ -2,19 +2,8 @@ package calculator;
 
 public class ArithmeticCalculator extends Calculator {
 
-    // 사칙 연산 필드
-    private final AddOperator addOperator;
-    private final SubtractOperator subtractOperator;
-    private final MultiplyOperator multiplyOperator;
-    private final DivideOperator divideOperator;
+    private AbstractOperator operator;
 
-    public ArithmeticCalculator(){
-        addOperator = new AddOperator();
-        subtractOperator = new SubtractOperator();
-        multiplyOperator = new MultiplyOperator();
-        divideOperator = new DivideOperator();
-    }
-    
 
     /** 사칙연산자를 이용해 계산하는 함수
      *
@@ -27,22 +16,16 @@ public class ArithmeticCalculator extends Calculator {
         int result = 0;
         try {
             switch (operator){
-                case '+':
-                    result = addOperator.operate(firstNum, secondNum);
-                    break;
-                case '-' :
-                    result = subtractOperator.operate(firstNum, secondNum);
-                    break;
-                case '*' :
-                    result = multiplyOperator.operate(firstNum, secondNum);
-                    break;
-                case '/' :
-                    result = divideOperator.operate(firstNum, secondNum);
-                    break;
-                default :// 정의되지 않은 기호의 경우 처리
-                    System.out.println("정의되어있는 사칙 연산 기호가 아닙니다.");
-                    break;
+                case '+' -> this.operator = new AddOperator();
+                case '-' -> this.operator = new SubtractOperator();
+                case '*' -> this.operator = new MultiplyOperator();
+                case '/' -> this.operator = new DivideOperator();
+                case '%' -> this.operator = new ModOperator();
+                default  -> System.out.println("정의되어있는 사칙 연산 기호가 아닙니다.");
             }
+            if ( this.operator != null )
+                result = this.operator.operate(firstNum, secondNum);
+
         } catch (ArithmeticException e) { // 예외적인 산술조건이 발생했을 때 throw 됩니다. https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ArithmeticException.html
             System.out.println(e.getMessage()); // getMessage()는 throwable의 세부 정보 메시지 문자열을 반환합니다.
         }
