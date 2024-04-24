@@ -29,7 +29,14 @@ public class App {
                  * https://docs.oracle.com/javase/8/docs/api/java/lang/String.html */
                 char operator = sc.next().charAt(0);
 
-                int result = arithmeticCalculator.calculate(operator, firstNum, secondNum);
+                OperatorType operatorType = OperatorType.fromSymbol(operator);
+
+                if ( operatorType == OperatorType.None ){
+                    System.out.println("정의되지않은 기호입니다.");
+                    continue;
+                }
+
+                int result = arithmeticCalculator.calculate(operatorType, firstNum, secondNum);
                 System.out.println("결과: " + result);
 
                 arithmeticCalculator.addResultHistory(result);
