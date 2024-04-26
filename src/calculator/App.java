@@ -48,11 +48,9 @@ public class App {
 
                 System.out.print("첫 번째 숫자를 입력하세요: ");
                 Number firstNum = parseNumber(sc.next()); // 정수형 변수를 선언, nextInt로 입력받음
-                System.out.println(firstNum);
 
                 System.out.print("두 번째 숫자를 입력하세요: ");
                 Number secondNum = parseNumber(sc.next());
-                System.out.println(secondNum);
 
                 System.out.print("사칙연산 기호를 입력하세요 : "); // +, -, *, /
 
@@ -82,6 +80,14 @@ public class App {
                 String inquiryCode = sc.next().toLowerCase();
                 if ( inquiryCode.equals("inquiry") ){
                     arithmeticCalculator.inquiryResults();
+                }
+
+                System.out.println("입력받은 값보다 큰 값들을 출력하시겠습니까? (y 입력 시 조회)");
+                String findCode = sc.next().toLowerCase();
+                if ( findCode.equals("y")){
+                    System.out.print("값: ");
+                    double threshold = sc.nextDouble();
+                    arithmeticCalculator.findResultsGreaterThan( threshold );
                 }
             }
             else if ( choice == 2){ // 원의 넓이

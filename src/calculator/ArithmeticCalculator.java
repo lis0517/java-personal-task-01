@@ -1,6 +1,9 @@
 package calculator;
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * ArithmeticCalculator 클래스는 사칙연산을 수행하는 계산기 기능을 제공합니다.
  */
@@ -44,6 +47,17 @@ public class ArithmeticCalculator extends Calculator {
      */
     public void removeResult(){
         resultHistory.remove(0);
+    }
+
+    public void findResultsGreaterThan(double threshold){
+        List<Double> filteredList = resultHistory.stream()
+                .mapToDouble(Number::doubleValue)
+                .filter(result -> result > threshold)
+                .boxed().toList();
+
+        System.out.println( threshold + "보다 큰 결과: " );
+        filteredList.forEach(result -> System.out.print( result + " "));
+        System.out.println();
     }
 
 }
