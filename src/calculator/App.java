@@ -3,6 +3,35 @@ package calculator;
 import java.util.Scanner;
 
 public class App {
+
+    /**
+     * 문자열을 파싱하여 숫자 객체로 반환하는 메서드.
+     *
+     * @param input 파싱할 문자열
+     * @return 파싱된 숫자 객체 (Double 또는 Integer)
+     * @throws IllegalArgumentException 입력 문자열이 null이거나 빈 문자열인 경우
+     * @throws NumberFormatException    변환이 실패한 경우
+     * @see String#trim()
+     */
+    public static Number parseNumber(String input){
+        if ( input == null || input.isEmpty() ){
+            throw new IllegalArgumentException("숫자를 입력하지않았습니다.");
+        }
+        input = input.trim(); // 앞,뒤 문자열 공백 제거
+
+        try{
+            return Integer.parseInt(input);
+        }catch (NumberFormatException intError){
+            System.out.println(intError.getMessage());
+            try {
+                return Long.parseLong(input);
+            }catch (NumberFormatException longError){
+                System.out.println(longError.getMessage());
+                return Double.parseDouble(input);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         /* Calculator 인스턴스 생성 */
         ArithmeticCalculator arithmeticCalculator = new ArithmeticCalculator();
@@ -18,10 +47,12 @@ public class App {
             if ( choice == 1 ){ // 사칙연산
 
                 System.out.print("첫 번째 숫자를 입력하세요: ");
-                int firstNum = sc.nextInt(); // 정수형 변수를 선언, nextInt로 입력받음
+                Number firstNum = parseNumber(sc.next()); // 정수형 변수를 선언, nextInt로 입력받음
+                System.out.println(firstNum);
 
                 System.out.print("두 번째 숫자를 입력하세요: ");
-                int secondNum = sc.nextInt();
+                Number secondNum = parseNumber(sc.next());
+                System.out.println(secondNum);
 
                 System.out.print("사칙연산 기호를 입력하세요 : "); // +, -, *, /
 
@@ -36,7 +67,7 @@ public class App {
                     continue;
                 }
 
-                int result = arithmeticCalculator.calculate(operatorType, firstNum, secondNum);
+                Number result = arithmeticCalculator.calculate(operatorType, firstNum, secondNum);
                 System.out.println("결과: " + result);
 
                 arithmeticCalculator.addResultHistory(result);
