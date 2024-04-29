@@ -15,5 +15,12 @@ public abstract class AbstractOperator {
      * @param secondNum 두 번째 피연산자
      * @return 연산 결과
      */
-    public abstract int operate(int firstNum, int secondNum);
+    public abstract <T extends Number> Number operate(T firstNum, T secondNum);
+
+    /**
+     *  피연산자들이 유효한지 확인
+     * */
+    public <T extends Number> boolean invalidNumber(T firstNum, T secondNum){
+        return firstNum == null || secondNum == null;
+    }
 }
