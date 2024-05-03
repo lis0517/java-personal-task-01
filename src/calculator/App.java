@@ -22,12 +22,15 @@ public class App {
         try{
             return Integer.parseInt(input);
         }catch (NumberFormatException intError){
-            System.out.println(intError.getMessage());
             try {
                 return Long.parseLong(input);
             }catch (NumberFormatException longError){
-                System.out.println(longError.getMessage());
-                return Double.parseDouble(input);
+                try{
+                    return Double.parseDouble(input);
+                }
+                catch (NumberFormatException doubleError){
+                    return null;
+                }
             }
         }
     }
@@ -39,9 +42,9 @@ public class App {
 
         Scanner sc = new Scanner(System.in);
 
-        while (true){
+        do {
             /* 사칙연산을 진행할지 원의 너비를 구할지 선택 */
-            System.out.print("1. 사칙연산 | 2. 원의 넓이 계산 | 0. 종료 : ");
+            System.out.print("1. 사칙연산 | 2. 원의 넓이 계산");
             int choice = sc.nextInt();
 
             if ( choice == 1 ){ // 사칙연산
@@ -71,7 +74,7 @@ public class App {
                 arithmeticCalculator.addResultHistory(result);
 
                 System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력)");
-                String removeCode = sc.next().toLowerCase();
+                String removeCode = sc.next().toLowerCase(); // toLowerCase() 함수는 기본 Locale 규칙을 사용하여 이 문자의 모든 문자를 소문자로 변환합니다.
                 if ( removeCode.equals("remove") ){
                     arithmeticCalculator.removeResult();
                 }
@@ -82,15 +85,15 @@ public class App {
                     arithmeticCalculator.inquiryResults();
                 }
 
-                System.out.println("입력받은 값보다 큰 값들을 출력하시겠습니까? (y 입력 시 조회)");
+                System.out.println("입력받은 값보다 큰 값들을 출력하시겠습니까? (lambda 입력 시 조회)");
                 String findCode = sc.next().toLowerCase();
-                if ( findCode.equals("y")){
-                    System.out.print("값: ");
+                if ( findCode.equals("lambda")){
+                    System.out.print("기준 값을 입력하세요: ");
                     double threshold = sc.nextDouble();
                     arithmeticCalculator.findResultsGreaterThan( threshold );
                 }
             }
-            else if ( choice == 2){ // 원의 넓이
+            else{ // 원의 넓이
                 System.out.print("반지름을 입력하세요: ");
                 double radius = sc.nextDouble();
                 /* 원의 넓이를 구하는 경우 반지름을 입력받아 원의 넓이를 구한 후 출력*/
@@ -101,19 +104,11 @@ public class App {
                 /* 저장된 원의 넓이 값들 바로 전체 조회 */
                 circleCalculator.inquiryResults();
             }
-            else{
-                break;
-            }
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
 
-            /* toLowerCase() 함수는 기본 Locale 규칙을 사용하여 이 문자의 모든 문자를 소문자로 변환합니다.
-             * https://docs.oracle.com/javase/8/docs/api/java/lang/String.html */
-            String exitCode = sc.next().toLowerCase(); // Exit, eXit 등 exit만 일치하면 작동하도록
 
-            if ( exitCode.equals("exit") )
-                break;
-        }
+        }while(!sc.next().toLowerCase().equals("exit"));
         sc.close();
     }
 }
